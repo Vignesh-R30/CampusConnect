@@ -16,14 +16,7 @@ const registerUser = async (req, res) => {
     try {
         const { name, email, password, role, adminKey, college, department, year, profilePicture } = req.body;
 
-        // Basic validation
-        if (!name || !email || !password) {
-            return res.status(400).json({ message: 'Please provide all required fields' });
-        }
 
-        if (password.length < 6) {
-            return res.status(400).json({ message: 'Password must be at least 6 characters' });
-        }
 
         // Verify Admin Key if registering as admin
         if (role === 'admin') {
