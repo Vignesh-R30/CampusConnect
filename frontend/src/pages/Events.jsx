@@ -10,6 +10,11 @@ const Events = () => {
   const [myRegistrations, setMyRegistrations] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('date-asc');
+  
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit] = useState(10);
 
   // Admin form state
   const [formData, setFormData] = useState({ 
@@ -34,8 +39,12 @@ const Events = () => {
 
   const fetchEvents = async () => {
     try {
-      const res = await fetch(`${API_URL}/events`, { headers: getAuthHeaders(token) });
-      if (res.ok) setEvents(await res.json());
+      const res = await fetch(`${API_URL}/events?page=${page}&limit=${limit}`, { headers: getAuthHeaders(token) });
+      if (res.ok) {
+        const data = await res.json();
+        setEvents(data.events || []);
+        setTotalPages(data.totalPages || 1);
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -45,7 +54,7 @@ const Events = () => {
 
   useEffect(() => {
     fetchEvents();
-  }, [token]);
+  }, [token, page]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -296,6 +305,29 @@ const Events = () => {
             );
           })}
           {events.length === 0 && <p>No upcoming events.</p>}
+        </div>
+      )}
+
+      {/* Pagination Controls */}
+      {!loading && totalPages > 1 && (
+        <div className="flex justify-center items-center mt-8 gap-4">
+          <button 
+            disabled={page === 1} 
+            onClick={() => setPage(page - 1)} 
+            className="btn btn-outline"
+            style={{ opacity: page === 1 ? 0.5 : 1, padding: '0.5rem 1rem' }}
+          >
+            Previous
+          </button>
+          <span style={{ fontWeight: 'bold' }}>Page {page} of {totalPages}</span>
+          <button 
+            disabled={page === totalPages} 
+            onClick={() => setPage(page + 1)} 
+            className="btn btn-outline"
+            style={{ opacity: page === totalPages ? 0.5 : 1, padding: '0.5rem 1rem' }}
+          >
+            Next
+          </button>
         </div>
       )}
 

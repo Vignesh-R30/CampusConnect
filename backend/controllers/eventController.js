@@ -5,8 +5,19 @@ const Event = require('../models/Event');
 // @access  Private
 const getEvents = async (req, res) => {
     try {
-        const events = await Event.find().populate('createdBy', 'name email').sort({ date: 1 }); // Sort by upcoming dates
-        res.json(events);
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
+        const skip = (page - 1) * limit;
+
+        const totalEvents = await Event.countDocuments();
+        const events = await Event.find().populate('createdBy', 'name email').sort({ date: 1 }).skip(skip).limit(limit);
+        
+        res.json({
+            events,
+            currentPage: page,
+            totalPages: Math.ceil(totalEvents / limit),
+            totalEvents
+        });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
