@@ -33,8 +33,7 @@ app.use('/api/placements', require('./routes/placementRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
 
-// Serve uploads folder statically
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 
 // Database connection
 const connectDB = async () => {
