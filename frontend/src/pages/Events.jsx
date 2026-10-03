@@ -34,7 +34,7 @@ const Events = () => {
     upiId: '',
     transactionId: '',
     amountPaid: '',
-    dateOfPayment: new Date().toISOString().split('T')[0]
+    dateOfPayment: ''
   });
 
   const fetchEvents = async () => {

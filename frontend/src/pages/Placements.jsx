@@ -15,6 +15,7 @@ const Placements = () => {
   const [formData, setFormData] = useState({
     companyName: '', jobRole: '', package: '', driveDate: '', cgpaCriteria: 0, description: '', registrationLink: ''
   });
+  const [now] = useState(() => new Date());
 
   const fetchPlacements = async () => {
     try {
@@ -162,7 +163,7 @@ const Placements = () => {
             return 0;
           }).map(drive => {
             const d = new Date(drive.driveDate);
-            const isUpcoming = d >= new Date();
+            const isUpcoming = d >= now;
             
             return (
               <div key={drive._id} className="card" style={{ padding: '1.5rem', borderLeft: isUpcoming ? '4px solid #10b981' : '4px solid #94a3b8', display: 'flex', flexDirection: 'column' }}>
