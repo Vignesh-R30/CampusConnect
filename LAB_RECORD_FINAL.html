@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CampusConnect Lab Record</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            color: black;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Headings size 16 bold */
+        h1, h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 24pt;
+            margin-bottom: 12pt;
+        }
+        /* Side headings size 14 bold */
+        h3 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 18pt;
+            margin-bottom: 8pt;
+        }
+        /* Contents size 12 */
+        p, li, td, th {
+            font-size: 12pt;
+            margin-bottom: 10pt;
+        }
+        pre, code {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11pt;
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+        }
+        pre {
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align: center;">COMPREHENSIVE PROJECT REPORT</h1>
+    <h2 style="text-align: center;">CampusConnect - MERN Stack Web Development</h2>
+    <br><br>
+
+    <h2>1 Introduction</h2>
+    <h3>1.1 Project Overview</h3>
+    <p>The primary objective of this project is to design, develop, and deploy a unified smart campus platform named CampusConnect. Built utilizing the MERN (MongoDB, Express.js, React.js, Node.js) stack, this application aims to digitize campus communication, manage college events securely, and foster an interactive student-faculty community. Traditional educational institutions often rely on highly fragmented communication systems (notice boards, WhatsApp groups). CampusConnect solves this by providing a centralized digital hub featuring Role-Based Access Control (RBAC), enabling administrators to post announcements and manage events, while students can register for events, participate in discussion forums, and access academic resources.</p>
+
+    <h2>2 Requirements Analysis</h2>
+    <h3>2.1 Hardware Requirements</h3>
+    <ul>
+        <li><strong>Processor:</strong> Intel Core i3 / AMD Ryzen 3 or equivalent (Minimum); Intel Core i5 (Recommended)</li>
+        <li><strong>RAM:</strong> 4GB (Minimum); 8GB (Recommended)</li>
+        <li><strong>Storage:</strong> 1GB free disk space for local environment setup</li>
+        <li><strong>Internet:</strong> High-speed internet connection required for cloud database (MongoDB Atlas) and deployment.</li>
+    </ul>
+
+    <h3>2.2 Software Requirements</h3>
+    <ul>
+        <li><strong>Operating System:</strong> Windows 10/11, macOS, or Linux (Ubuntu 20.04+)</li>
+        <li><strong>Runtime Environment:</strong> Node.js (v18.x or higher)</li>
+        <li><strong>Package Manager:</strong> npm (v9.x or higher)</li>
+        <li><strong>Code Editor:</strong> Visual Studio Code (VS Code)</li>
+        <li><strong>Database Server:</strong> MongoDB Atlas (Cloud)</li>
+    </ul>
+
+    <h3>2.3 Functional Requirements</h3>
+    <ul>
+        <li>The system must allow users to register and log in securely.</li>
+        <li>The system must support distinct roles for 'Students' and 'Administrators'.</li>
+        <li>Administrators must be able to create, edit, and delete campus events and announcements.</li>
+        <li>Students must be able to view and register for events.</li>
+        <li>Users must be able to create community discussion threads and reply to posts.</li>
+        <li>The system must allow image uploads for profile pictures and event banners.</li>
+    </ul>
+
+    <h3>2.4 Non-Functional Requirements</h3>
+    <ul>
+        <li><strong>Security:</strong> All passwords must be hashed before database insertion. API routes must be protected using JSON Web Tokens (JWT).</li>
+        <li><strong>Performance:</strong> Database queries should be paginated to reduce memory overhead during large data retrievals.</li>
+        <li><strong>Usability:</strong> The frontend must be fully responsive across mobile, tablet, and desktop devices.</li>
+    </ul>
+
+    <h2>3 System Design</h2>
+    <h3>3.1 System Architecture</h3>
+    <p>The application implements a robust Three-Tier Architecture model:</p>
+    <ul>
+        <li><strong>Client Tier (Frontend):</strong> A Single Page Application (SPA) built with React.js. It manages UI rendering, client-side routing, and global state management via the Context API.</li>
+        <li><strong>Server Tier (Backend):</strong> An Express.js REST API that intercepts HTTP requests, enforces Zod schema validation, handles business logic, and manages JWT authentication.</li>
+        <li><strong>Data Tier (Database):</strong> MongoDB serves as the NoSQL storage layer, interacting with the backend via Mongoose ORM. Cloudinary is utilized as an external cloud storage provider for handling media files.</li>
+    </ul>
+
+    <h3>3.2 Database Design</h3>
+    <p>The database is structured using Mongoose Schemas. Below is the structure for the core entities:</p>
+    <ul>
+        <li><strong>User Entity:</strong> name, email (unique), password (hashed), role (enum), college, department, profilePicture.</li>
+        <li><strong>Event Entity:</strong> title, description, date, location, feeType, feeAmount, createdBy (Reference to User).</li>
+        <li><strong>Discussion Entity:</strong> title, content, category, author (Reference to User), replies array.</li>
+    </ul>
+
+    <h2>4 Technology Stack</h2>
+    <h3>4.1 MongoDB</h3>
+    <p>MongoDB is a NoSQL document database used for its high-volume data storage capabilities and flexibility. Data is stored in JSON-like documents with dynamic schemas, making data integration seamless in MERN applications.</p>
+
+    <h3>4.2 Express.js</h3>
+    <p>Express is a minimal and flexible Node.js web application framework that provides a robust set of features. It acts as the backend routing framework, handling HTTP requests, and integrating Zod validation middleware.</p>
+
+    <h3>4.3 React.js</h3>
+    <p>React is a declarative, efficient, and flexible JavaScript library for building user interfaces. Using Vite as the build tool, the frontend operates as a SPA, utilizing React Router DOM for instant page transitions without browser reloads.</p>
+
+    <h3>4.4 Node.js</h3>
+    <p>Node.js is an asynchronous event-driven JavaScript runtime designed to build scalable network applications. It powers the Express server and allows JavaScript to execute on the server-side.</p>
+
+    <h3>4.5 Other Tools / Libraries</h3>
+    <ul>
+        <li><strong>Mongoose:</strong> Object Data Modeling (ODM) library for MongoDB.</li>
+        <li><strong>Zod:</strong> Schema declaration and validation library to sanitize API inputs.</li>
+        <li><strong>Cloudinary & Multer:</strong> Used for secure cloud image uploading and streaming.</li>
+        <li><strong>Bcryptjs & JWT:</strong> Used for password hashing and secure stateless authentication.</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>5 System Implementation</h2>
+    <h3>5.1 Module 1: Authentication & Authorization</h3>
+    <p>Handles secure user registration and login using `bcryptjs` for password hashing and `jsonwebtoken` (JWT) for session management. Includes distinct Role-Based Access Control (RBAC) for 'Students' and 'Admins'. Admin registration is guarded by a confidential server-side secret key.</p>
+
+    <h3>5.2 Module 2: Interactive Dashboard</h3>
+    <p>A centralized UI providing users with a quick overview of upcoming events, recent announcements, and quick-action navigation. It dynamically fetches and renders data based on the authenticated user's role.</p>
+
+    <h3>5.3 Module 3: Event Management</h3>
+    <p>Allows administrators to create, read, update, and delete campus events. Features server-side pagination (using MongoDB `.skip()` and `.limit()`) to optimize database load and network bandwidth.</p>
+
+    <h3>5.4 Module 4: Community Discussions</h3>
+    <p>A forum system for students and faculty to post queries and share resources categorized by Academics, Placements, and General queries. Users can engage in threaded conversations.</p>
+
+    <h3>5.5 API / Backend Implementation - code</h3>
+    <p>Below is the implementation of the backend Validation Middleware and Authentication Controller:</p>
+<pre><code>// Zod Validation Middleware (middleware/validate.js)
+const { ZodError } = require('zod');
+const validate = (schema) => (req, res, next) => {
+    try {
+        schema.parse(req.body);
+        next();
+    } catch (err) {
+        if (err instanceof ZodError) {
+            const errors = err.errors.map(e => `${e.path.join('.')}: ${e.message}`);
+            return res.status(400).json({ message: 'Validation Failed', errors });
+        }
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+// Event Pagination Controller (controllers/eventController.js)
+const getEvents = async (req, res) => {
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const skip = (page - 1) * limit;
+
+    const totalEvents = await Event.countDocuments();
+    const events = await Event.find().skip(skip).limit(limit).sort({ date: 1 });
+    
+    res.json({ events, currentPage: page, totalPages: Math.ceil(totalEvents / limit) });
+};
+</code></pre>
+
+    <h3>5.6 Frontend Implementation - code</h3>
+    <p>Below is the implementation of the React Context API for global state and data fetching:</p>
+<pre><code>// Frontend Auth Context (context/AuthContext.jsx)
+import { createContext, useState, useEffect } from 'react';
+
+export const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem('token') || '');
+
+    const login = (userData, jwtToken) => {
+        setUser(userData);
+        setToken(jwtToken);
+        localStorage.setItem('token', jwtToken);
+    };
+
+    const logout = () => {
+        setUser(null);
+        setToken('');
+        localStorage.removeItem('token');
+    };
+
+    return (
+        &lt;AuthContext.Provider value={{ user, token, login, logout }}&gt;
+            {children}
+        &lt;/AuthContext.Provider&gt;
+    );
+};
+</code></pre>
+
+    <div class="page-break"></div>
+
+    <h2>6 Results and Screenshots</h2>
+    <p>The CampusConnect application was successfully developed and deployed to production. The frontend is hosted on Vercel, and the backend is hosted on Render.</p>
+    <p><i>(Note to student: Please insert your application screenshots here. Recommended screenshots: Login Page, Dashboard, Event Registration Modal, Discussion Forum.)</i></p>
+
+    <h2>7 Conclusion and Future Enhancement</h2>
+    <p><strong>Conclusion:</strong> The CampusConnect project successfully achieves its objective of unifying and digitizing the campus ecosystem. By leveraging the MERN stack alongside advanced enterprise engineering practices—such as Zod schema validation pipelines, Cloudinary media hosting, and O(1) server-side database pagination—the application proves to be highly scalable, secure, and user-friendly.</p>
+    <p><strong>Future Enhancements:</strong></p>
+    <ul>
+        <li><strong>Real-Time Chat:</strong> Integrating Socket.io to allow live peer-to-peer messaging between students and faculty.</li>
+        <li><strong>Push Notifications:</strong> Implementing Service Workers for browser-level push notifications regarding emergency campus announcements.</li>
+        <li><strong>Mobile Application:</strong> Utilizing React Native to port the existing business logic into standalone iOS and Android mobile applications.</li>
+    </ul>
+
+    <h2>8 References</h2>
+    <ul>
+        <li>React Documentation. (2024). React – A JavaScript library for building user interfaces. Retrieved from https://reactjs.org/</li>
+        <li>Node.js Documentation. (2024). Node.js. Retrieved from https://nodejs.org/</li>
+        <li>Express.js Documentation. (2024). Express - Node.js web application framework. Retrieved from https://expressjs.com/</li>
+        <li>MongoDB Documentation. (2024). The MongoDB Database. Retrieved from https://docs.mongodb.com/</li>
+        <li>Zod Documentation. (2024). TypeScript-first schema validation. Retrieved from https://zod.dev/</li>
+    </ul>
+
+</body>
+</html>
