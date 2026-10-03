@@ -12,7 +12,10 @@ Traditional college campuses often rely on fragmented communication systems—ra
 - To streamline administrative tasks such as event registrations, complaint tracking, and placement updates.
 - To provide a modern, responsive, and highly accessible user interface across all devices.
 
-## ✨ Features
+## ✨ Enterprise Features (New!)
+- **Robust API Validation**: Centralized Zod schema validation middleware intercepts and sanitizes all incoming API requests.
+- **Server-Side Pagination**: Optimized MongoDB queries using `.skip()` and `.limit()` for infinite scaling of events and announcements, reducing memory footprint to O(1).
+- **Cloud Media Storage**: Native integration with Cloudinary API for scalable, ephemeral-safe image hosting.
 - **Role-Based Access Control**: Secure login and registration with distinct Student and Admin roles (Admin registration protected by secret keys).
 - **Interactive Dashboard**: A beautiful, responsive glassmorphism-themed dashboard summarizing upcoming events and important announcements.
 - **Student Community**: Robust discussion forums for academics, programming, placements, and general campus life.
@@ -20,7 +23,6 @@ Traditional college campuses often rely on fragmented communication systems—ra
 - **Lost & Found System**: Report lost items or find items with image uploads and category filtering.
 - **Smart Complaint Portal**: File complaints with campus administration and track their resolution status.
 - **Academic Resources**: Access study materials sorted by department and semester.
-- **Admin Directory**: Admins can view a complete directory of registered students.
 - **Profile Customization**: Users can upload native profile pictures and update their personal details.
 
 ## 💻 Technology Stack
@@ -28,13 +30,14 @@ Traditional college campuses often rely on fragmented communication systems—ra
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB, Mongoose
 - **Authentication**: JSON Web Tokens (JWT), bcryptjs
-- **File Uploads**: Multer (Local Storage)
+- **Data Validation**: Zod (Schema Validation Middleware)
+- **File Uploads**: Cloudinary API, Multer Storage Cloudinary
 
 ## 🏗️ MERN Architecture
 CampusConnect follows the robust MERN (MongoDB, Express.js, React.js, Node.js) stack architecture. 
 - **Client Tier (React)**: Handles the UI rendering, routing, and global state (Context API) to provide a single-page application experience.
-- **Server Tier (Express/Node)**: RESTful API backend handling business logic, authentications, and serving static uploaded files.
-- **Data Tier (MongoDB)**: NoSQL database schemas modeling Users, Events, Announcements, Discussions, and Complaints for flexible and scalable storage.
+- **Server Tier (Express/Node)**: RESTful API backend handling business logic, authentications, Zod validation pipelines, and Cloudinary upload streaming.
+- **Data Tier (MongoDB)**: NoSQL database schemas modeling Users, Events, Announcements, Discussions, and Complaints for flexible and scalable storage. Optimized with server-side pagination.
 
 ## 📂 Folder Structure
 ```text
@@ -42,10 +45,10 @@ CampusConnect/
 │
 ├── backend/                  # Express.js Server
 │   ├── controllers/          # Route handlers & business logic
-│   ├── middleware/           # JWT and role-based auth middleware
+│   ├── middleware/           # JWT, role-based auth, and Zod validation middleware
 │   ├── models/               # Mongoose DB Schemas
 │   ├── routes/               # API endpoint definitions
-│   ├── uploads/              # Local storage for profile/post images
+│   ├── validators/           # Zod schema definitions
 │   ├── .env.example          # Sample environment variables
 │   └── server.js             # Entry point for backend
 │
@@ -137,7 +140,6 @@ Vite will start the client, usually accessible at `http://localhost:5173`.
 - **Real-Time Chat**: Integrate Socket.io for live peer-to-peer messaging.
 - **Push Notifications**: Implement web push notifications for critical announcements.
 - **Mobile Application**: Port the responsive web app into a native React Native mobile app.
-- **Cloud Storage**: Migrate local Multer uploads to AWS S3 or Cloudinary.
 
 ## 👥 Contributors
 - **Vignesh R.S** - Full Stack Developer
