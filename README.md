@@ -1,5 +1,7 @@
 # 🎓 CampusConnect
 
+**🚀 Live Demo:** [https://campus-connect-heaven-02a7.vercel.app](https://campus-connect-heaven-02a7.vercel.app/)
+
 ## 📖 Project Description
 CampusConnect is a modern, unified smart campus platform built to bridge the gap between students, administration, and campus services. It serves as a central hub where students can manage their academic life, track events, participate in communities, and seamlessly interact with campus administrators in real-time.
 
