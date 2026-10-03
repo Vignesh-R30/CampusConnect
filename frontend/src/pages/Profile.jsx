@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { FaUserCircle, FaEnvelope, FaIdBadge, FaUniversity, FaBook, FaCalendarAlt, FaTools, FaHeart, FaInfoCircle } from 'react-icons/fa';
+import { FaUserCircle, FaEnvelope, FaIdBadge, FaUniversity, FaCalendarAlt, FaTools, FaInfoCircle } from 'react-icons/fa';
 import API_URL, { getAuthHeaders } from '../services/api';
 
 const Profile = () => {
@@ -56,6 +56,7 @@ const Profile = () => {
         setMessage({ text: data.message || 'Failed to update', type: 'error' });
       }
     } catch (err) {
+      console.error(err);
       setMessage({ text: 'Server error', type: 'error' });
     } finally {
       setIsLoading(false);
@@ -130,6 +131,7 @@ const Profile = () => {
         setMessage({ text: data.message || 'Failed to change password', type: 'error' });
       }
     } catch (err) {
+      console.error(err);
       setMessage({ text: 'Server error', type: 'error' });
     } finally {
       setIsLoading(false);

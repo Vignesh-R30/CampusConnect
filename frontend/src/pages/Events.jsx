@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { FaCalendarAlt, FaTrash, FaUsers, FaCheckCircle, FaBuilding, FaRupeeSign, FaQrcode } from 'react-icons/fa';
+import { FaCalendarAlt, FaTrash, FaUsers, FaCheckCircle, FaBuilding } from 'react-icons/fa';
 import API_URL, { getAuthHeaders } from '../services/api';
 
 const Events = () => {
@@ -97,6 +97,7 @@ const Events = () => {
         alert(data.message || 'Failed to register');
       }
     } catch (err) {
+      console.error(err);
       alert('Error registering for event');
     }
   };
