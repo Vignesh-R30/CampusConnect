@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import API_URL from '../services/api';
 
 const Register = () => {
   const [formData, setFormData] = useState({ 
@@ -32,7 +33,7 @@ const Register = () => {
       if (profileImageFile) {
         const formDataUpload = new FormData();
         formDataUpload.append('image', profileImageFile);
-        const uploadRes = await fetch('http://localhost:5000/api/upload', {
+        const uploadRes = await fetch(`${API_URL}/upload`, {
           method: 'POST',
           body: formDataUpload,
         });
@@ -46,7 +47,7 @@ const Register = () => {
 
       const finalFormData = { ...formData, profilePicture: uploadedProfilePicture };
 
-      const res = await fetch('http://localhost:5000/api/auth/register', {
+      const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(finalFormData),

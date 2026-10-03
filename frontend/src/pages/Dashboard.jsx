@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import API_URL from '../services/api';
 import { FaCalendarAlt, FaBullhorn, FaClipboardList, FaSearchLocation, FaUsers, FaComments, FaBookOpen, FaBriefcase, FaUserGraduate, FaSearch } from 'react-icons/fa';
 
 const Dashboard = () => {
@@ -14,7 +15,7 @@ const Dashboard = () => {
       try {
         const token = user?.token || localStorage.getItem('token');
         if (!token) return;
-        const res = await fetch('http://localhost:5000/api/announcements?category=Important', {
+        const res = await fetch(`${API_URL}/announcements?category=Important`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {
@@ -22,7 +23,7 @@ const Dashboard = () => {
           setAnnouncements(data.slice(0, 3)); // show top 3
         }
 
-        const eventsRes = await fetch('http://localhost:5000/api/events', {
+        const eventsRes = await fetch(`${API_URL}/events`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (eventsRes.ok) {
@@ -143,7 +144,7 @@ const Dashboard = () => {
           <div className="card" style={{ padding: '1.5rem', background: 'linear-gradient(to right bottom, #ffffff, #f8fafc)', border: '1px solid var(--border-color)' }}>
             <div className="flex items-center gap-4 mb-4">
               <img 
-                src={user?.profilePicture?.startsWith('/uploads') ? `http://localhost:5000${user.profilePicture}` : (user?.profilePicture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=random`)} 
+                src={user?.profilePicture?.startsWith('/uploads') ? `${API_URL.replace('/api', '')}${user.profilePicture}` : (user?.profilePicture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=random`)} 
                 alt="Profile" 
                 style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover' }}
               />
